@@ -25,14 +25,14 @@ function getItem(req, res) {
 function putItem(req, res) {
     let items = monoCollection.find({key: req.params.id});
     if (items.length == 0) {
-        item = monoCollection.insert({key: req.params.id, value: req.body.value});
+        // der gesamte Body des Requests wird als "value" abgespeichert
+        item = monoCollection.insert({key: req.params.id, value: req.body});
     } else {
         item = items[0];
-        item.value = req.body.value;
+        // beim Aktualisieren ebenfalls: der gesamte Body ist der neue "value"
+        item.value = req.body;
         monoCollection.update(item);
     }
-
-    // auch PUT liefert nur den Wert zurück
     res.json(item.value);
 }
 
@@ -43,7 +43,6 @@ function delItem(req, res) {
     } else {
         item = items[0];
         monoCollection.remove(item);
-        // auch DELETE liefert Wert zurück
         res.json(item.value);
     }
 }
