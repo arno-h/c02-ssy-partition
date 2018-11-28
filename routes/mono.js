@@ -13,6 +13,16 @@ const monoCollection = database.getCollection('mono');
 function getItem(req, res) {
     // suche alle Objekte, deren Inhalt ein key-Feld mit key==req.params.id hat
     let items = monoCollection.find({key: req.params.id});
+
+    // Alternative: where() mit extra Funktion:
+    // let items = monoCollection.where(findKey)
+    // function findKey(item) {
+    //   return item.key == req.params.id;
+    // }
+
+    // Alternative: where mit anonymer Funktion (Lambda-Syntax):
+    // let items = monoCollection.where((item) => item.key == req.params.id);
+
     // items ist ein Array. Falls kein Objekt gefunden, dann eben leeres Array
     if (items.length == 0) {
         res.status(404).end();
@@ -24,6 +34,8 @@ function getItem(req, res) {
 
 function putItem(req, res) {
     let items = monoCollection.find({key: req.params.id});
+    let item;
+
     if (items.length == 0) {
         // der gesamte Body des Requests wird als "value" abgespeichert
         item = monoCollection.insert({key: req.params.id, value: req.body});

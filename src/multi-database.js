@@ -2,7 +2,7 @@ const Loki = require("lokijs");
 
 const db = new Loki('multi.json');
 
-// Erzeugt 26 Collections, mit den Namen "store-a" bis "store-z"
+// Erzeugt 26 Collections, mit den Namen "multi-a" bis "multi-z"
 for (let i of 'abcdefghijklmnopqrstuvwxyz') {
     let collectionName = 'multi-' + i;
     let coll = db.addCollection(collectionName);
