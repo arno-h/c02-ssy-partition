@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Request = require('request');
+const Axios = require('axios');
+const axios = Axios.create({validateStatus: null});
 
 router.get('/:id', handleItem);
 router.put('/:id', handleItem);

@@ -1,6 +1,7 @@
 function getRouter(shard_nr) {
     const express = require('express');
-    const Request = require('request');
+    const Axios = require('axios');
+    const axios = Axios.create({validateStatus: null});
     const database = require('../src/peer-database');
     const router = express.Router();
 
