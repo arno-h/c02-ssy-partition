@@ -1,27 +1,27 @@
-function getRouter(shard_nr) {
-    const express = require('express');
-    const database = require('../src/multi-database');
-    const router = express.Router();
-
-    router.get('/:id', getItem);
-    router.put('/:id', putItem);
-    router.delete('/:id', delItem);
+const express = require('express');
+const cluster = require('cluster');
+const database = require('../src/multi-database');
+const router = express.Router();
+const multiCollection = database.getCollection('multi');
 
 
-    function getItem(req, res) {
-    }
+router.get('/:id', getItem);
+router.put('/:id', putItem);
+router.delete('/:id', delItem);
 
 
-    function putItem(req, res) {
+function getItem(req, res) {
 
-    }
-
-
-    function delItem(req, res) {
-
-    }
-
-    return router;
 }
 
-module.exports = getRouter;
+
+function putItem(req, res) {
+
+}
+
+
+function delItem(req, res) {
+
+}
+
+module.exports = router;

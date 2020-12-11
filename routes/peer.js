@@ -1,29 +1,29 @@
-function getRouter(shard_nr) {
-    const express = require('express');
-    const Axios = require('axios');
-    const axios = Axios.create({validateStatus: null});
-    const database = require('../src/peer-database');
-    const router = express.Router();
+const express = require('express');
+const cluster = require('cluster');
+const Axios = require('axios');
+const axios = Axios.create({validateStatus: null});
+const database = require('../src/peer-database');
+const peerCollection = database.getCollection('peer');
+const router = express.Router();
 
-    router.get('/:id', getItem);
-    router.put('/:id', putItem);
-    router.delete('/:id', delItem);
-
-
-    function getItem(req, res) {
-    }
+router.get('/:id', getItem);
+router.put('/:id', putItem);
+router.delete('/:id', delItem);
 
 
-    function putItem(req, res) {
+function getItem(req, res) {
 
-    }
-
-
-    function delItem(req, res) {
-
-    }
-
-    return router;
 }
 
-module.exports = getRouter;
+
+function putItem(req, res) {
+
+}
+
+
+function delItem(req, res) {
+
+}
+
+
+module.exports = router;

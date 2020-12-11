@@ -1,15 +1,11 @@
 const Loki = require("lokijs");
-
+const cluster = require("cluster");
 const db = new Loki('multi.json');
 
-// Erzeugt 26 Collections, mit den Namen "multi-a" bis "multi-z"
-for (let i of 'abcdefghijklmnopqrstuvwxyz') {
-    let collectionName = 'multi-' + i;
-    let coll = db.addCollection(collectionName);
-
-    // Beispiel-Einträge der Form: {"a17": "seventeen-a"}
-    coll.insert({key: i+"17", value: 'seventeen-'+i});
-    coll.insert({key: i+"21", value: 'twenty-one-'+i});
-}
+let coll = db.addCollection('multi');
+// Beispiel-Einträge der Form: {"a17": "seventeen-a"}
+let chr = 'abcdefghijklmnopqrstuvwxyz'[cluster.worker.id - 1];
+coll.insert({key: chr+"17", value: 'seventeen-'+chr});
+coll.insert({key: chr+"21", value: 'twenty-one-'+chr});
 
 module.exports = db;

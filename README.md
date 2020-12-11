@@ -15,5 +15,5 @@ Verzeichnisse & Dateien
     * mono-database.js ... Datenbank und Fixtures mit Beispiel-Daten
     * multi-database.js ... Datenbank und Fixtures mit Beispiel-Daten
     * peer-database.js ... Datenbank und Fixtures mit Beispiel-Daten
-* app.js ... Definition & Setup der Express-Applikation
+* app-worker.js ... Definition & Setup der Express-Applikation
 * package.json ... Welche Bibliotheken sonst eingebunden werden sollen

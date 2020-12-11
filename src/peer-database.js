@@ -1,15 +1,11 @@
 const Loki = require("lokijs");
-
+const cluster = require("cluster");
 const db = new Loki('peer.json');
 
-// Erzeugt 26 Collections, mit den Namen "peer-a" bis "peer-z"
-for (let i of 'abcdefghijklmnopqrstuvwxyz') {
-    let collectionName = 'peer-' + i;
-    let coll = db.addCollection(collectionName);
-
-    // Beispiel-Einträge der Form: {"a17": "seventeen-a"}
-    coll.insert({key: i+"17", value: 'seventeen-'+i});
-    coll.insert({key: i+"21", value: 'twenty-one-'+i});
-}
+let coll = db.addCollection('peer');
+// Beispiel-Einträge der Form: {"a17": "seventeen-a"}
+let chr = 'abcdefghijklmnopqrstuvwxyz'[cluster.worker.id - 1];
+coll.insert({key: chr+"17", value: 'seventeen-'+chr});
+coll.insert({key: chr+"21", value: 'twenty-one-'+chr});
 
 module.exports = db;
