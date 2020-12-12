@@ -3,17 +3,29 @@ const router = express.Router();
 const Axios = require('axios');
 const axios = Axios.create({validateStatus: null});
 
-router.get('/:id', handleItem);
-router.put('/:id', handleItem);
-router.delete('/:id', handleItem);
+router.get('/:id', getItemLB);
+router.put('/:id', putItemLB);
+router.delete('/:id', delItemLB);
 
 
-async function handleItem(req, res) {
-    let store = 3000 + req.params.id.charCodeAt(0) - 96;
-    let url = 'http://127.0.0.1:' + store + '/multi/' + req.params.id;
-    let multi_resp = await axios(url, {method: req.method, data: req.body});
-    res.status(multi_resp.status);
-    res.json(multi_resp.data);
+async function getItemLB(req, res) {
+    let key = req.params.id;
+    // Partition-/Routing-Logik
+    let worker_id = key.charCodeAt(0) - 96; // 'a' == 97 in Unicode/ASCII
+
+    let port = 3000 + worker_id;
+    let url = 'http://localhost:'+port+'/multi/'+key;
+    let response = await axios.get(url);    // Request an Partition
+    res.status(response.status);            // leitet Antwort weiter (an anrufenden Client)
+    res.json(response.data);
+}
+
+async function putItemLB(req, res) {
+
+}
+
+async function delItemLB(req, res) {
+
 }
 
 module.exports = router;
