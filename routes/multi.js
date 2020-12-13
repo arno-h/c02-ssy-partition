@@ -4,6 +4,8 @@ const database = require('../src/multi-database');
 const router = express.Router();
 const multiCollection = database.getCollection('multi');
 
+// Enthält Buchstaben der eigenen Partition des Workers
+const myPartition = 'abcdefghijklmnopqrstuvwxyz'[cluster.worker.id - 1]
 
 router.get('/:id', getItem);
 router.put('/:id', putItem);
@@ -24,7 +26,8 @@ function getItem(req, res) {
 
 
 function putItem(req, res) {
-
+    // Sie könnten optional prüfen, ob wirklich ein passender Key geschrieben werden soll
+    // In der Variable myPartition ist der Anfangsbuchstabe dieser Partition enthalten
 }
 
 

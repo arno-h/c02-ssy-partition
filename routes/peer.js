@@ -6,6 +6,9 @@ const database = require('../src/peer-database');
 const peerCollection = database.getCollection('peer');
 const router = express.Router();
 
+// Enthält Buchstaben der eigenen Partition des Workers
+const myPartition = 'abcdefghijklmnopqrstuvwxyz'[cluster.worker.id - 1]
+
 router.get('/:id', getItem);
 router.put('/:id', putItem);
 router.delete('/:id', delItem);
